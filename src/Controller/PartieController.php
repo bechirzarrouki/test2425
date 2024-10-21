@@ -20,7 +20,7 @@ class PartieController extends AbstractController
             'controller_name' => 'PartieController',
         ]);
     }
-    #[Route('/listpartie', name: 'app1_partie')]
+    #[Route('/listpartie', name: 'app0_Partie')]
     public function list(PartieRepository $partieRepository ): Response
     {   
         $parties=$partieRepository->findAll();
@@ -48,11 +48,12 @@ class PartieController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/updatepartie', name: 'app2_partie')]
-    public function update(ManagerRegistry $manage,Request $req): Response
+    #[Route('/updatepartie/{id}', name: 'app2_partie')]
+    public function update(ManagerRegistry $manage,Request $req,$id): Response
     {
-        $Partie=new Partie();
+        
         $em=$manage->getManager();
+        $Partie=$em->getRepository(Partie::class)->find($id);
         $form=$this->createForm(PartieType::class,$Partie);
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,5 +67,14 @@ class PartieController extends AbstractController
             'controller_name' => 'PartieController',
             'form' => $form,
         ]);
+    }
+    #[Route('/deletepartie/{id}', name: 'app3_partie')]
+    public function deleteform(ManagerRegistry $manager,$id): Response
+    {   
+        $em=$manager->getManager();
+        $partie=$em->getRepository(Partie::class)->find($id);
+        $em->remove($partie);
+        $em->flush();
+        return $this->redirectToRoute('app0_Partie');
     }
 }
