@@ -3,10 +3,10 @@
 <tr>
 <th>id</th>
 <th>nom</th>
-<th>date</th>
+<th>status</th>
 <th>action</th>
 </tr>
-{% for i in parties %}
+{% for i in joueurs %}
 <tr>
     <td>
     {{i.id}}
@@ -15,11 +15,11 @@
     {{i.nom}}
     </td>
     <td>
-    {{i.PartieDate|date('y/m/d')}}
+    {{i.status}}
     </td>
     <td>
-    <a href="{{ path('app2_partie', { 'id': i.id }) }}">edit </a>
-    <a href="{{ path('app3_partie', { 'id': i.id }) }}">remove </a>
+    <a href="{{ path('app2_joueur', { 'id': i.id }) }}">edit </a>
+    <a href="{{ path('app3_joueur', { 'id': i.id }) }}">remove </a>
     </td>
 </tr>
 {% endfor %}

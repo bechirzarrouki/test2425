@@ -21,7 +21,7 @@ class Joueur
 
     #[ORM\ManyToOne(inversedBy: 'joueurs')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?partie $PartieId = null;
+    private ?Partie $PartieId = null;
 
     public function getId(): ?int
     {
