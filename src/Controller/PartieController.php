@@ -77,4 +77,15 @@ class PartieController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('app0_Partie');
     }
+    #[Route('/listinterval', name: 'app4_partie')]
+    public function getPartiesByInterval(PartieRepository $partieRepository,Request $req): Response
+    {
+        $startDate = '24/10/20'|date('y/m/d');
+        $endDate ='25/10/20'|date('y/m/d');
+        $parties = $partieRepository->findPartiesByInterval($startDate, $endDate);
+            return $this->render('partie/list.html.twig', [
+                'controller_name' => 'partieController',
+                'parties' => $parties,
+            ]);
+        }
 }

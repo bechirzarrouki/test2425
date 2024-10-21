@@ -20,7 +20,15 @@ class PartieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Partie::class);
     }
-
+    public function findPartiesByInterval( $datedebut,  $datefin): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.PartieDate BETWEEN :start AND :end')
+            ->setParameter('start', $datedebut)
+            ->setParameter('end', $datefin)
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Partie[] Returns an array of Partie objects
 //     */
